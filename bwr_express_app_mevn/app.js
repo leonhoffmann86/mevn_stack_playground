@@ -3,8 +3,20 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var mongoose = require("mongoose");
 
 var app = express();
+
+//connect to mongodb
+mongoose
+  .connect("mongodb://localhost:27017/bwr_db_mevn", function () {
+    useNewUrlParser: true;
+    console.log("Connection has been made");
+  })
+  .catch((err) => {
+    console.error("App starting error:", err.stack);
+    process.exit(1);
+  });
 
 // Require file system module
 var fs = require("file-system");
@@ -43,8 +55,15 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(3001, function () {
-  console.log("listening on 3001");
+app.listen(3003, function () {
+  console.log("listening on 3003");
 });
 
 module.exports = app;
+
+
+db.posts.updateOne(
+  { "title" : "MEVN" },
+  { $set: { "description" : "A frontend framework for Javascript
+programming language" } }
+)
